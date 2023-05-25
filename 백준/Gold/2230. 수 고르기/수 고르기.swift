@@ -3,7 +3,7 @@ let n = input[0], m = input[1]
 var numbers = [Int]()
 
 func solution() {
-    var minValue = numbers.max()! - numbers.min()!
+    var minValue = Int.max
     var end: Int = 0
     
     for start in 0..<n {
