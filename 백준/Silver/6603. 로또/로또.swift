@@ -1,26 +1,33 @@
-var input = readLine()!.split(separator: " ").compactMap{ Int($0)! }
-var s = [Int]()
-var lotto = [Int]()
+var input = readLine()!.split(separator: " ").map{ Int(String($0))! }
+var result: [Int] = []
 
-func solution(_ point: Int, _ depth: Int = 0) {
-    if depth == 6 {
-        lotto.forEach{ print($0, terminator: " ") }
+while input.first! != 0 {
+    let k = input.removeFirst()
+    let s = input
+    
+    dfs(s, 0, 0)
+    
+    input = readLine()!.split(separator: " ").map{ Int(String($0))! }
+    print("")
+    result = []
+}
+
+func dfs(_ numbers: [Int], _ index: Int, _ depth: Int) {
+    
+    if depth >= 6 {
+        result.sort()
+        result.forEach {
+            print($0, terminator: " ")
+        }
         print("")
         return
     }
     
-    for i in point..<s.count {
-        if lotto.contains(s[i]) { continue }
-        lotto.append(s[i])
-        solution(i, depth + 1)
-        lotto.removeLast()
+    for i in index..<numbers.count {
+        let value: Int = numbers[i]
+        if result.contains(value) { continue }
+        result.append(value)
+        dfs(numbers, i, depth + 1)
+        let _ = result.popLast()!
     }
-}
-
-while input.first! != 0 {
-    input.removeFirst()
-    s = input
-    solution(0)
-    print("")
-    input = readLine()!.split(separator: " ").compactMap{ Int($0)! }
 }
